@@ -27,7 +27,7 @@ jobs:
           server: ${{ secrets.FTP_SERVER }}
           username: ${{ secrets.FTP_USERNAME }}
           password: ${{ secrets.FTP_PASSWORD }}
-          local-dir: ./out/
+          local-dir: ./dist/
           server-dir: ./ # This points to public_html based on your FTP setup
           # Dangerous: set to true if you want to delete files on server that aren't in your local repo
           delete-destination: false
