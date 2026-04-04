@@ -1,0 +1,33 @@
+name: Deploy to cPanel
+on:
+  push:
+    branches:
+      - main # This triggers the build whenever you push to main
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v4
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - name: Install & Build
+        run: |
+          npm install
+          npm run build
+
+      - name: Sync to cPanel
+        uses: SamKirkland/FTP-Deploy-Action@v4.3.5
+        with:
+          server: ${{ secrets.FTP_SERVER }}
+          username: ${{ secrets.FTP_USERNAME }}
+          password: ${{ secrets.FTP_PASSWORD }}
+          local-dir: ./out/
+          server-dir: ./ # This points to public_html based on your FTP setup
+          # Dangerous: set to true if you want to delete files on server that aren't in your local repo
+          delete-destination: false
