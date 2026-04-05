@@ -24,9 +24,9 @@ jobs:
       - name: Sync to cPanel
         uses: SamKirkland/FTP-Deploy-Action@v4.3.5
         with:
-          server: ftp.menelikmichael.com
-          username: menelik@menelikmichael.com
-          password: minas2596
+          server: ${{ secrets.FTP_SERVER }}
+          username: ${{ secrets.FTP_USERNAME }}
+          password: ${{ secrets.FTP_PASSWORD }}
           local-dir: ./dist/
           # If FileZilla shows '/' as the web root, use './' here. 
           # If it shows folders like 'public_html', use './public_html/'
