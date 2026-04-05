@@ -27,8 +27,11 @@ jobs:
           server: ${{ secrets.FTP_SERVER }}
           username: ${{ secrets.FTP_USERNAME }}
           password: ${{ secrets.FTP_PASSWORD }}
-          local-dir: ./dist/ # Vite outputs to 'dist', not 'out'
-          server-dir: ./public_html/ # Explicitly point to your web root
-          # These two lines usually fix the "Timeout" error on cPanel:
-          protocol: ftp
+          local-dir: ./dist/
+          # If FileZilla shows '/' as the web root, use './' here. 
+          # If it shows folders like 'public_html', use './public_html/'
+          server-dir: ./ 
+          protocol: ftps # Forces the TLS connection FileZilla used
           port: 21
+          # This ignores the 'Self-Signed' certificate warning common on shared hosts
+          security: loose
